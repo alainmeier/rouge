@@ -40,7 +40,7 @@ module Rouge
       end
 
       def start_inline?
-        !!@start_inline || !!@global_start_line
+        !!@start_inline || !!@global_start_inline
       end
 
       start do
