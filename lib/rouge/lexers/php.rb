@@ -10,7 +10,7 @@ module Rouge
       filenames '*.php', '*.php[345]'
       mimetypes 'text/x-php'
 
-      default_options :parent => 'html', :php_inline => false
+      default_options :parent => 'html'
 
       def initialize(opts={})
         # if truthy, the lexer starts highlighting with php code
@@ -18,6 +18,7 @@ module Rouge
         @start_inline = opts.delete(:start_inline)
         @funcnamehighlighting = opts.delete(:funcnamehighlighting) { true }
         @disabledmodules = opts.delete(:disabledmodules) { [] }
+        @global_start_inline = opts.delete(:php_inline)
 
         super(opts)
       end
@@ -39,11 +40,11 @@ module Rouge
       end
 
       def start_inline?
-        !!@start_inline
+        !!@start_inline || !!@global_start_line
       end
 
       start do
-        push :php if start_inline? || php_inline
+        push :php if start_inline?
       end
 
       def self.keywords
