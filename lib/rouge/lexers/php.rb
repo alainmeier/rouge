@@ -18,7 +18,6 @@ module Rouge
         @start_inline = opts.delete(:start_inline)
         @funcnamehighlighting = opts.delete(:funcnamehighlighting) { true }
         @disabledmodules = opts.delete(:disabledmodules) { [] }
-        @global_start_inline = opts.delete(:php_inline)
 
         super(opts)
       end
@@ -40,11 +39,11 @@ module Rouge
       end
 
       def start_inline?
-        !!@start_inline || !!@global_start_inline
+        !!@start_inline
       end
 
       start do
-        push :php if start_inline?
+        push :php
       end
 
       def self.keywords
